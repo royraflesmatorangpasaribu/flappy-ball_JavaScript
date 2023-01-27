@@ -99,3 +99,58 @@ class Ball {
         }
     }
 }
+
+class Obstacle {
+    constructor(width, frequency, gap) {
+        this.width = width;
+        this.frequency = frequency;
+        this.gap = gap;
+
+        //pembentukan objek rintangan dengan cara random
+        this.obs_list = [
+            { x: 500, height: getRndInteger(this.gap, HEIGHT - GROUND_HEIGHT - this.gap), scored: false },
+            { x: 500 + this.width + this.frequency, height: getRndInteger(this.gap, HEIGHT - GROUND_HEIGHT - this.gap), scored: false }
+        ];
+    }
+
+    update() {   
+        for (var obsl of this.obs_list) {
+            obsl.x -= SCROLL_SPEED;
+            if (obsl.x + this.width <= 0) {
+                obsl.x = WIDTH;
+                obsl.height = getRndInteger(this.gap, HEIGHT - GROUND_HEIGHT - this.gap - this.gap);
+                obsl.scored = false;
+            }
+        }
+    }
+    
+    //cetak rintangan
+    drawObstacle() {
+        fill("#000000");
+        for (var ojk of this.obs_list) {
+            rect(ojk.x, 0, this.width, ojk.height);
+            rect(ojk.x, HEIGHT - GROUND_HEIGHT, this.width, - HEIGHT + ojk.height + GROUND_HEIGHT + this.gap);
+        }
+    }
+  
+    //agar game over tampil di depan objek
+    drawGameOver() {
+        if(x){
+            textSize(25);
+            textAlign(CENTER);
+            fill('white');
+            text("Game Over",200, 200);
+            textSize(12);
+            textAlign(CENTER);
+            text("Press 'Enter' to play again.",200, 250);
+        }
+    
+    }
+}
+
+//instance objek
+
+var ball = new Ball(WIDTH / 2, HEIGHT / 2, 30);
+//memberi tinggi dan jarak rintangan
+var obs = new Obstacle(50, 150, 150);
+
