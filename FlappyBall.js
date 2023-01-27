@@ -1,0 +1,10 @@
+let p=[];
+let n = 100;
+var SCROLL_SPEED = 4;
+var SCORE = 0;
+var x = false;
+const GRAVITY = 9.80665;
+const JUMP_HEIGHT = 9.0;
+const GROUND_HEIGHT = 20; 
+const WIDTH = 400;
+const HEIGHT = 600;
