@@ -154,3 +154,56 @@ var ball = new Ball(WIDTH / 2, HEIGHT / 2, 30);
 //memberi tinggi dan jarak rintangan
 var obs = new Obstacle(50, 150, 150);
 
+//menampilkan game 
+function draw() {
+    background('rgb(100%,0%,10%)');
+    for (i=0;i<n;i++){
+        p[i].show();
+        p[i].move();
+    }
+    describe('canvas with red background');
+    fill(0);
+    rect(0, HEIGHT - GROUND_HEIGHT, WIDTH, HEIGHT);
+
+    ball.draw();
+    ball.update();
+    ball.checkDeath(obs);
+
+    obs.update();
+    obs.drawObstacle();
+    obs.drawGameOver();
+  
+    textSize(20);
+    textAlign(CENTER);
+    fill(255);
+    text("SCORE : ", 200, 597);
+    text(SCORE, 250,597);
+    fill(255);
+    textSize(15);
+    //BAWAH ATAS, KANAN KIRI
+    text("Roy Rafles Matorang Pasaribu", 125, 19);
+    SCROLL_SPEED += 0.001; 
+}
+//kontrol bola 
+function keyPressed() {
+    if (keyCode == 38) {
+        //untuk keycode == 38 untuk menandakan bahwa 38 itu tombol up arrow atau panah atas
+        ball.flap();
+    }
+    if (keyCode == 13){
+        //untuk keycode == 13 untuk menandakan bahwa 38 itu tombol down arrow atau panah bawah
+        window.location.reload();
+    }
+}
+// untuk menampilkan background abu abu pada saat game over
+function gameOver(){
+    fill(70);
+    rect(0,0,WIDTH,HEIGHT);
+    fill(227, 101, 91);
+}
+
+//kontrol bola
+function mouseClicked() {
+    //klik mouse kiri bola menuju atas
+    ball.flap();
+  }
